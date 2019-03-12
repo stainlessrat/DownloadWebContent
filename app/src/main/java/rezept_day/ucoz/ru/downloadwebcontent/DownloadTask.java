@@ -1,6 +1,7 @@
 package rezept_day.ucoz.ru.downloadwebcontent;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class DownloadTask extends AsyncTask<String, Void, String> {
     //Данный класс нужен нам, чтобы наша задача выполнялась в другом потоке, отличном от главного потока
@@ -14,6 +15,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        return null;
+        Log.i("URL", strings[0]);//Отправляем в лог то что получили в массив
+        return "готово";
     }
 }
