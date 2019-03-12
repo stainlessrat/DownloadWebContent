@@ -1,1 +1,1 @@
-include ':app', ':downloadimage', ':stringadvanced'
+include ':app', ':downloadimage', ':stringadvanced', ':guessstar'
