@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageView;
-    private String url = "http://images.eil.com/large_image/ALIZEE_MADEMOISELLE%2BJULIETTE-424396.jpg";
+    private String url = "https://images.ru.prom.st/329266019_w640_h640_belyj-plyushevyj-mishka.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        if (bitmap != null) {
-            imageView.setImageBitmap(bitmap);
-        }
+        imageView.setImageBitmap(bitmap);
     }
 }

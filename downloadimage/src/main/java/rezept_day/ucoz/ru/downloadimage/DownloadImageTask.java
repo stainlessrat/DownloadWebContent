@@ -16,12 +16,12 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... strings) {
         URL url = null;
         HttpsURLConnection urlConnection = null;
+        Bitmap bitmap = null;
         try {
             url = new URL(strings[0]);
             urlConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);//Получить данные и преобразовать их в картинку
-            return bitmap;
+            bitmap = BitmapFactory.decodeStream(inputStream);//Получить данные и преобразовать их в картинку
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -31,6 +31,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
                 urlConnection.disconnect();
             }
         }
-        return null;
+        return bitmap;
     }
 }
