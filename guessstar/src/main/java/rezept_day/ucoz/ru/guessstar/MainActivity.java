@@ -1,5 +1,6 @@
 package rezept_day.ucoz.ru.guessstar;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import rezept_day.ucoz.ru.guessstar.downloadtask.DownloadContentTask;
+import rezept_day.ucoz.ru.guessstar.downloadtask.DownloadImageTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private String url = "http://www.posh24.se/kandisar";
     private ArrayList<String> urls;
     private ArrayList<String> names;
+    private ArrayList<Button> buttons;
+    private int numberOfQuestion, numberOfRightAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         initUI();
 
         getContent();
+
+        playGame();
     }
 
     private void initUI() {
@@ -43,7 +49,46 @@ public class MainActivity extends AppCompatActivity {
         imageViewStar = findViewById(R.id.imageViewStar);
         urls = new ArrayList<>();
         names = new ArrayList<>();
+        buttons = new ArrayList<>();
+        buttons.add(button0);
+        buttons.add(button1);
+        buttons.add(button2);
+        buttons.add(button3);
     }
+
+    private void playGame(){
+        generateQuestion();
+
+        DownloadImageTask task = new DownloadImageTask();
+        try {
+            Bitmap bitmap = task.execute(urls.get(numberOfQuestion)).get();
+            if(bitmap != null){
+                imageViewStar.setImageBitmap(bitmap);
+                for(int i = 0; i < buttons.size(); i++){
+                    if(i == numberOfRightAnswer){
+                        buttons.get(i).setText(names.get(numberOfQuestion));
+                    }else {
+                        int answer = generateWrongAnswer();
+                        buttons.get(i).setText(names.get(answer));
+                    }
+                }
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void generateQuestion(){
+        numberOfQuestion = (int)(Math.random() * names.size());
+        numberOfRightAnswer = (int) (Math.random() * buttons.size());
+    }
+
+    private int generateWrongAnswer(){
+        return (int)(Math.random() * names.size());
+    }
+
     private void getContent(){
         DownloadContentTask task = new DownloadContentTask();
         try {
@@ -68,9 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 names.add(marcherName.group(1));
             }
 
-            for (String s : urls) {
-                Log.i("MyResult", s);
-            }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
