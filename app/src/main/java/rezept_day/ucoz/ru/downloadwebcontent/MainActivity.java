@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.i("Hello", "Hello, world!");
+        Log.i("Hello", mailRu);//Очень удобно пользоваться при отладке, когда нам нужно проверить как работает тот или иной метод
+        DownloadTask task = new DownloadTask();//Создаем объект нашего класса
+        task.execute(mailRu);//У объекта вызываем метод который запускает выполнение нашей задачи
     }
 }
