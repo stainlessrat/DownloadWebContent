@@ -34,5 +34,17 @@ public class MainActivity extends AppCompatActivity {
         while (matcher.find()){
             Log.i("MyName", matcher.group(1));//чтобы вызвать первое совпадение используем matcher.group(1)
         }
+
+        String tag = "<div class=\"image\"><img src=\"http://cdn.posh24.se/images/:profile/0e6a3a799005f04429c1a76e2f2fa4cd1\" alt=\"Jennifer Lopez\"/></div>";
+        Pattern urlPattern = Pattern.compile("<div class=\"image\"><img src=\"(.*?)\" alt");
+        Pattern namePattern = Pattern.compile("\" alt=\"(.*?)\"/></div>");
+        Matcher urlMatcher = urlPattern.matcher(tag);
+        Matcher  nameMatcher = namePattern.matcher(tag);
+        while (urlMatcher.find()){
+            Log.i("MyName", urlMatcher.group(1));
+        }
+        while (nameMatcher.find()){
+            Log.i("MyName", nameMatcher.group(1));
+        }
     }
 }
