@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -118,5 +120,16 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void onClickAnswer(View view) {
+        Button button = (Button) view;
+        String tag = button.getTag().toString();
+        if(Integer.parseInt(tag) == numberOfRightAnswer){
+            Toast.makeText(this, "Верно!", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Неверно! Правильный ответ: " + names.get(numberOfRightAnswer), Toast.LENGTH_SHORT).show();
+        }
+        playGame();
     }
 }
