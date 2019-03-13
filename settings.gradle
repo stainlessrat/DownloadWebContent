@@ -1,1 +1,1 @@
-include ':app', ':downloadimage', ':stringadvanced', ':guessstar', ':downloadjson'
+include ':app', ':downloadimage', ':stringadvanced', ':guessstar', ':downloadjson', ':weatherapp'
